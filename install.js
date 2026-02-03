@@ -16,6 +16,15 @@ module.exports = {
           "uv sync"
         ]
       }
+    },
+    {
+      method: "shell.run",
+      params: {
+        path: "app",
+        message: [
+          "uv run acestep-download"
+        ]
+      }
     }
   ]
 }
