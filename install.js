@@ -13,7 +13,8 @@ module.exports = {
       params: {
         path: "app",
         message: [
-          "uv sync"
+          "uv sync",
+          "uv pip install torchao"
         ]
       }
     },

@@ -14,7 +14,10 @@ module.exports = {
     method: "shell.run",
     params: {
       path: "app",
-      message: "uv sync"
+      message: [
+        "uv sync",
+        "uv pip install torchao"
+      ]
     }
   }]
 }
