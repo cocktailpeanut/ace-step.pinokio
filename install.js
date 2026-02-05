@@ -9,6 +9,18 @@ module.exports = {
       }
     },
     {
+      method: "fs.link",
+      params: {
+        drive: {
+          checkpoints: "app/checkpoints"
+        },
+        peers: [
+          "https://github.com/cocktailpeanut/ace-step-ui.pinokio.git",
+          "https://github.com/cocktailpeanut/ace-step.pinokio.git"
+        ]
+      }
+    },
+    {
       method: "shell.run",
       params: {
         path: "app",
