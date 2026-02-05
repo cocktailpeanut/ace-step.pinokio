@@ -19,15 +19,6 @@ module.exports = {
       }
     },
     {
-      method: "shell.run",
-      params: {
-        path: "app",
-        message: [
-          "uv run acestep-download"
-        ]
-      }
-    },
-    {
       method: "fs.link",
       params: {
         drive: {
@@ -36,6 +27,15 @@ module.exports = {
         peers: [
           "https://github.com/cocktailpeanut/ace-step-ui.pinokio.git",
           "https://github.com/cocktailpeanut/ace-step.pinokio.git"
+        ]
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        path: "app",
+        message: [
+          "uv run acestep-download"
         ]
       }
     }
