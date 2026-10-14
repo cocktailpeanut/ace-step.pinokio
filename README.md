@@ -14,6 +14,23 @@ Notes:
 - The first run may download model checkpoints.
 - The launcher auto-assigns a free port; edit `start.js` if you need a fixed port.
 
+## AMD / ROCm (Windows)
+On AMD GPUs the launcher installs a ROCm build of PyTorch instead of the default CUDA build
+(`torch.js`, selected per gfx target). A few AMD-specific adjustments are applied automatically:
+
+- `torchao` is removed: the Windows ROCm wheels don't compile `torch.distributed`, and importing
+  `torchao` fails there.
+- A small guarded `sitecustomize.py` shim is written into `app/.venv` that supplies the
+  `torch.distributed.ReduceOp` / `group` symbols `vector_quantize_pytorch` imports at load time.
+  It only activates when `ACESTEP_ROCM_SHIM=1` (set by `start.js`).
+- `start.js` detects the GPU whose gfx target the installed torch was built for and restricts
+  `HIP_VISIBLE_DEVICES` to it. This avoids the "hipErrorInvalidImage / hipErrorInvalidKernelFile"
+  failure that occurs on hybrid AMD systems when both the integrated Radeon and the dedicated
+  Radeon are visible at once.
+- `uv` must not re-sync on AMD (`uv run --no-sync`), otherwise the ROCm torch would be replaced by
+  the CUDA build from the lockfile.
+- On ROCm the app defaults to `float32`; set `ACESTEP_ROCM_DTYPE=bfloat16` (or `float16`) to override.
+
 ## API access
 ACE-Step 1.5 supports programmatic access via a REST API server and (optionally) Gradio API.
 
